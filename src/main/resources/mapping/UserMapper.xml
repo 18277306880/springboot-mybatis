@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.springbootmybatis.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.example.springbootmybatis.model.User">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <association property="group" javaType="com.example.springbootmybatis.model.Group">
+            <result column="group_id" property="groupId" jdbcType="INTEGER"/>
+            <result column="group_name" property="groupName" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+   <select id="getUser" parameterType="int" resultMap="BaseResultMap">
+        select * from usert where id = #{id}
+    </select>
+
+    <select id="getUsers" parameterType="int" resultMap="BaseResultMap">
+        select u.*,g.* from usert u,groupt g where u.group_id = #{groupId} and u.group_id = g.group_id
+    </select>
+
+</mapper>
